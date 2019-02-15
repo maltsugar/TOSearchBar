@@ -134,12 +134,12 @@ IB_DESIGNABLE
 
 
 
-
+// 可以填充纯色图片，切不同半径圆角
 @property (nonatomic, strong, readonly) UIImageView *barBackgroundView;
-// 必须>0
+// 以下属性必须>0
 @property (nonatomic, assign) CGFloat searchBarInset;
 @property (nonatomic, assign) CGFloat searchBarIconMargin;
-@property (nonatomic, assign) CGFloat searchBarBackgroundHeight;
+@property (nonatomic, assign) CGFloat searchBarBackgroundHeight; // 切圆角时设置此值，防止使用系统样式默认高度
 
 
 

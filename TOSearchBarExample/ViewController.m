@@ -43,7 +43,7 @@
     }
     
     _searchBar.barBackgroundView.image = [UIImage jk_imageWithColor:UIColor.orangeColor];
-    _searchBar.barBackgroundView.layer.cornerRadius = 15.f;
+    _searchBar.barBackgroundView.layer.cornerRadius = 8.f;
     _searchBar.barBackgroundView.clipsToBounds = YES;
     _searchBar.searchBarBackgroundHeight = 30.f;
     _searchBar.searchBarInset = 15;
