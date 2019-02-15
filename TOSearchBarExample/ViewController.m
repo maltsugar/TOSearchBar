@@ -8,6 +8,8 @@
 
 #import "ViewController.h"
 #import "TOSearchBar.h"
+#import "UIImage+JKColor.h"
+
 
 @interface ViewController () <UIScrollViewDelegate, UISearchBarDelegate>
 
@@ -39,6 +41,12 @@
         self.tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(scrollViewTapped:)];
         [self.scrollView addGestureRecognizer:self.tapRecognizer];
     }
+    
+    _searchBar.barBackgroundView.image = [UIImage jk_imageWithColor:UIColor.orangeColor];
+    _searchBar.barBackgroundView.layer.cornerRadius = 15.f;
+    _searchBar.barBackgroundView.clipsToBounds = YES;
+    _searchBar.searchBarBackgroundHeight = 30.f;
+    _searchBar.searchBarInset = 15;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -92,26 +100,26 @@
 
 - (IBAction)themeControlChanged:(id)sender
 {
-    BOOL darkMode = (self.themeControl.selectedSegmentIndex == 1);
-    UINavigationBar *navigationBar = self.navigationController.navigationBar;
-    
-    // Set the background colour of the view
-    self.view.backgroundColor = darkMode ? [UIColor colorWithWhite:0.09f alpha:1.0f] : [UIColor whiteColor];
-    
-    // Change the navigation bar style
-    navigationBar.barStyle = darkMode ? UIBarStyleBlack : UIBarStyleDefault;
-    navigationBar.barTintColor = darkMode ? [UIColor colorWithWhite:0.1f alpha:1.0f] : nil;
-    
-    // Change the global tint color
-    self.view.window.tintColor = darkMode ? [UIColor colorWithRed:90.0f/255.0f green:120.0f/255.0f blue:218.0f/255.0f alpha:1.0f] : nil;
-    
-    // Toggle the label colors
-    self.searchLabel.textColor = darkMode ? [UIColor whiteColor] : [UIColor blackColor];
-    self.classicSearchLabel.textColor = darkMode ? [UIColor whiteColor] : [UIColor blackColor];
-    
-    // Change the styles of the search bars
-    self.searchBar.style = darkMode ? TOSearchBarStyleDark : TOSearchBarStyleLight;
-    self.classicSearchBar.barStyle = darkMode ? UIBarStyleBlack : UIBarStyleDefault;
+//    BOOL darkMode = (self.themeControl.selectedSegmentIndex == 1);
+//    UINavigationBar *navigationBar = self.navigationController.navigationBar;
+//
+//    // Set the background colour of the view
+//    self.view.backgroundColor = darkMode ? [UIColor colorWithWhite:0.09f alpha:1.0f] : [UIColor whiteColor];
+//
+//    // Change the navigation bar style
+//    navigationBar.barStyle = darkMode ? UIBarStyleBlack : UIBarStyleDefault;
+//    navigationBar.barTintColor = darkMode ? [UIColor colorWithWhite:0.1f alpha:1.0f] : nil;
+//
+//    // Change the global tint color
+//    self.view.window.tintColor = darkMode ? [UIColor colorWithRed:90.0f/255.0f green:120.0f/255.0f blue:218.0f/255.0f alpha:1.0f] : nil;
+//
+//    // Toggle the label colors
+//    self.searchLabel.textColor = darkMode ? [UIColor whiteColor] : [UIColor blackColor];
+//    self.classicSearchLabel.textColor = darkMode ? [UIColor whiteColor] : [UIColor blackColor];
+//
+//    // Change the styles of the search bars
+//    self.searchBar.style = darkMode ? TOSearchBarStyleDark : TOSearchBarStyleLight;
+//    self.classicSearchBar.barStyle = darkMode ? UIBarStyleBlack : UIBarStyleDefault;
 }
 
 #pragma mark - Search Bar Delegate -

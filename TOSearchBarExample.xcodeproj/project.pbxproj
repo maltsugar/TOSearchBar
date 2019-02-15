@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04F91728221678E200337F87 /* UIImage+JKColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F91726221678E200337F87 /* UIImage+JKColor.m */; };
 		225977C51D9B682D00D23742 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 225977C41D9B682D00D23742 /* main.m */; };
 		225977C81D9B682D00D23742 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 225977C71D9B682D00D23742 /* AppDelegate.m */; };
 		225977CB1D9B682D00D23742 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 225977CA1D9B682D00D23742 /* ViewController.m */; };
@@ -30,6 +31,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		04F91726221678E200337F87 /* UIImage+JKColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+JKColor.m"; sourceTree = "<group>"; };
+		04F91727221678E200337F87 /* UIImage+JKColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+JKColor.h"; sourceTree = "<group>"; };
 		225977C01D9B682D00D23742 /* TOSearchBarExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TOSearchBarExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		225977C41D9B682D00D23742 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		225977C61D9B682D00D23742 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -103,6 +106,8 @@
 		225977C21D9B682D00D23742 /* TOSearchBarExample */ = {
 			isa = PBXGroup;
 			children = (
+				04F91727221678E200337F87 /* UIImage+JKColor.h */,
+				04F91726221678E200337F87 /* UIImage+JKColor.m */,
 				225977C61D9B682D00D23742 /* AppDelegate.h */,
 				225977C71D9B682D00D23742 /* AppDelegate.m */,
 				225977C91D9B682D00D23742 /* ViewController.h */,
@@ -266,6 +271,7 @@
 				225977C81D9B682D00D23742 /* AppDelegate.m in Sources */,
 				225977C51D9B682D00D23742 /* main.m in Sources */,
 				22B3E8531D9D53A900C6D26F /* TOSearchBar+Assets.m in Sources */,
+				04F91728221678E200337F87 /* UIImage+JKColor.m in Sources */,
 				22B3E8561D9D53BE00C6D26F /* TOSearchBar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

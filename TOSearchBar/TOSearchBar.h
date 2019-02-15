@@ -132,6 +132,19 @@ IB_DESIGNABLE
 /** The 'clear' button that will clear any text in the text field */
 @property (nonatomic, strong, readonly) UIButton *clearButton;
 
+
+
+
+@property (nonatomic, strong, readonly) UIImageView *barBackgroundView;
+// 必须>0
+@property (nonatomic, assign) float searchBarInset;
+@property (nonatomic, assign) float searchBarIconMargin;
+@property (nonatomic, assign) float searchBarBackgroundHeight;
+
+
+
+
+
 /** 
  Create a new instance of this class, specifying the frame and style. 
  

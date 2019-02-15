@@ -186,9 +186,16 @@ static const CGFloat kTOSearchBarBackgroundHeightModern = 36.0f;
 - (void)setUpButtons
 {
     CGFloat iconMargin = kTOSearchBarIconMarginClassic;
+    
     if (@available(iOS 11.0, *)) {
         iconMargin = kTOSearchBarIconMarginModern;
     }
+    
+    if (_searchBarIconMargin > 0) {
+        iconMargin = _searchBarIconMargin;
+    }
+    
+    
     
     if (self.showsCancelButton && self.cancelButton == nil) {
         self.cancelButton = [UIButton buttonWithType:UIButtonTypeSystem];
@@ -239,6 +246,11 @@ static const CGFloat kTOSearchBarBackgroundHeightModern = 36.0f;
         iconMargin = kTOSearchBarIconMarginModern;
     }
     
+    if (_searchBarIconMargin > 0) {
+        iconMargin = _searchBarIconMargin;
+    }
+    
+    
     if (self.cancelButton) {
         self.cancelButton.alpha = self.editing ? 1.0f : 0.0f;
         frame = self.cancelButton.frame;
@@ -255,44 +267,51 @@ static const CGFloat kTOSearchBarBackgroundHeightModern = 36.0f;
     // Layout the background view (and content container)
     frame = self.barBackgroundView.frame;
     frame.size.width = (self.frame.size.width) - (self.horizontalInset * 2.0f);
-    frame.size.height = kTOSearchBarBackgroundHeightClassic;
+    
+    float bgH = kTOSearchBarBackgroundHeightClassic;
     if (@available(iOS 11.0, *)) {
-        frame.size.height = kTOSearchBarBackgroundHeightModern;
+        bgH = kTOSearchBarBackgroundHeightModern;
     }
+    if (_searchBarBackgroundHeight > 0) {
+        bgH = _searchBarBackgroundHeight;
+    }
+    frame.size.height = bgH;
+    
     
     if (self.editing && self.cancelButton) { frame.size.width -= self.cancelButton.frame.size.width; }
     frame.origin.x = self.horizontalInset;
-    frame.origin.y = floorf((self.frame.size.height - frame.size.height) * 0.5f);
+    frame.origin.y = (self.frame.size.height - frame.size.height) * 0.5f;
     self.barBackgroundView.frame = frame;
     self.containerView.frame = frame;
     
     // layout the place holder label
     frame = self.placeholderLabel.frame;
+    
+    float _s_inset = kTOSearchBarInset;
+    if (_searchBarInset > 0) {
+        _s_inset = _searchBarInset;
+    }
+    
     if (self.centerTextLabel == NO) {
-        frame.origin.x = (kTOSearchBarInset) + self.iconView.frame.size.width;
-        if (@available(iOS 11.0, *)) {
-            frame.origin.x += kTOSearchBarIconMarginModern;
-        }
-        else {
-            frame.origin.x += kTOSearchBarIconMarginClassic;
-        }
+        frame.origin.x = (_s_inset) + self.iconView.frame.size.width;
+        frame.origin.x += iconMargin;
     }
     else {
-        frame.origin.x = floorf((CGRectGetWidth(self.containerView.frame) - CGRectGetWidth(frame)) * 0.5f);
+        frame.origin.x = (CGRectGetWidth(self.containerView.frame) - CGRectGetWidth(frame)) * 0.5f;
     }
-    frame.origin.y = floorf((CGRectGetHeight(self.containerView.frame) - CGRectGetHeight(frame)) * 0.5f);
+    frame.origin.y = (CGRectGetHeight(self.containerView.frame) - CGRectGetHeight(frame)) * 0.5f;
     self.placeholderLabel.frame = frame;
     self.placeholderLabel.hidden = self.hasSearchText;
     
     // layout the icon
     frame = self.iconView.frame;
     if (self.editing || self.hasSearchText) {
-        frame.origin.x = kTOSearchBarInset;
+        frame.origin.x = _s_inset;
     }
     else {
         frame.origin.x = CGRectGetMinX(self.placeholderLabel.frame) - (CGRectGetWidth(self.iconView.frame) + iconMargin);
     }
-    frame.origin.y = floorf(CGRectGetMidY(self.placeholderLabel.frame) - (CGRectGetHeight(self.iconView.frame) * 0.5f));
+    frame.origin.y = CGRectGetMidY(self.placeholderLabel.frame) - (CGRectGetHeight(self.iconView.frame) * 0.5f);
     self.iconView.frame = frame;
     
     // lay out the text field
@@ -305,7 +324,7 @@ static const CGFloat kTOSearchBarBackgroundHeightModern = 36.0f;
     
     // layout the clear button
     CGPoint center = CGPointZero;
-    center.x = (CGRectGetWidth(self.containerView.frame) - (kTOSearchBarInset + (clearImageSize.width * 0.5f)));
+    center.x = (CGRectGetWidth(self.containerView.frame) - (_s_inset + (clearImageSize.width * 0.5f)));
     center.y = (CGRectGetHeight(self.containerView.frame) * 0.5f);
     self.clearButton.center = center;
 }
