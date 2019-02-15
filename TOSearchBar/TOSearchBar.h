@@ -137,9 +137,9 @@ IB_DESIGNABLE
 
 @property (nonatomic, strong, readonly) UIImageView *barBackgroundView;
 // 必须>0
-@property (nonatomic, assign) float searchBarInset;
-@property (nonatomic, assign) float searchBarIconMargin;
-@property (nonatomic, assign) float searchBarBackgroundHeight;
+@property (nonatomic, assign) CGFloat searchBarInset;
+@property (nonatomic, assign) CGFloat searchBarIconMargin;
+@property (nonatomic, assign) CGFloat searchBarBackgroundHeight;
 
 
 
