@@ -160,6 +160,10 @@ IB_DESIGNABLE
  */
 - (instancetype)initWithStyle:(TOSearchBarStyle)style;
 
+
+
+- (void)setClearButtonHidden:(BOOL)hidden animated:(BOOL)animated;
+
 @end
 
 NS_ASSUME_NONNULL_END
