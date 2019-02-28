@@ -42,11 +42,21 @@
         [self.scrollView addGestureRecognizer:self.tapRecognizer];
     }
     
-    _searchBar.barBackgroundView.image = [UIImage jk_imageWithColor:UIColor.orangeColor];
-    _searchBar.barBackgroundView.layer.cornerRadius = 8.f;
-    _searchBar.barBackgroundView.clipsToBounds = YES;
+//    _searchBar.barBackgroundImgView.image = [UIImage jk_imageWithColor:UIColor.orangeColor];
+    _searchBar.barBackgroundTintColor = UIColor.orangeColor;
+    _searchBar.barBackgroundImgView.layer.cornerRadius = 15.f;
+    _searchBar.barBackgroundImgView.clipsToBounds = YES;
     _searchBar.searchBarBackgroundHeight = 30.f;
-    _searchBar.searchBarInset = 15;
+    _searchBar.iconViewLeftMargin = 50;
+    _searchBar.clearButtonRightMargin = 50;
+//    _searchBar.searchBarIconMargin = 40;
+    
+    CGRect frame = _searchBar.clearButton.frame;
+    frame.size.width = 30;
+    frame.size.height = 30;
+    _searchBar.clearButton.frame = frame;
+    
+    [_searchBar.clearButton setBackgroundColor:UIColor.brownColor];
 }
 
 - (void)viewDidAppear:(BOOL)animated

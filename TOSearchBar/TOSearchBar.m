@@ -38,7 +38,7 @@ static const CGFloat kTOSearchBarBackgroundHeightModern = 36.0f;
 @interface TOSearchBar () <UIGestureRecognizerDelegate, UITextFieldDelegate>
 
 // UI components
-@property (nonatomic, strong, readwrite) UIImageView *barBackgroundView;
+@property (nonatomic, strong, readwrite) UIImageView *barBackgroundImgView;
 @property (nonatomic, strong, readwrite) UIView *containerView;
 @property (nonatomic, strong, readwrite) UILabel *placeholderLabel;
 @property (nonatomic, strong, readwrite) UITextField *searchTextField;
@@ -122,19 +122,19 @@ static const CGFloat kTOSearchBarBackgroundHeightModern = 36.0f;
 
 - (void)setUpBackgroundViews
 {
-    if (self.barBackgroundView == nil) {
-        self.barBackgroundView = [[UIImageView alloc] initWithImage:[TOSearchBar sharedSearchBarBackground]];
+    if (self.barBackgroundImgView == nil) {
+        self.barBackgroundImgView = [[UIImageView alloc] initWithImage:[TOSearchBar sharedSearchBarBackground]];
     }
-    self.barBackgroundView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin |
+    self.barBackgroundImgView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin |
     UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth;
-    self.barBackgroundView.tintColor = self.barBackgroundTintColor;
-    self.barBackgroundView.userInteractionEnabled = NO;
-    [self addSubview:self.barBackgroundView];
+    self.barBackgroundImgView.tintColor = self.barBackgroundTintColor;
+    self.barBackgroundImgView.userInteractionEnabled = NO;
+    [self addSubview:self.barBackgroundImgView];
     
     if (self.containerView == nil) {
-        self.containerView = [[UIView alloc] initWithFrame:self.barBackgroundView.frame];
+        self.containerView = [[UIView alloc] initWithFrame:self.barBackgroundImgView.frame];
     }
-    self.containerView.autoresizingMask = self.barBackgroundView.autoresizingMask;
+    self.containerView.autoresizingMask = self.barBackgroundImgView.autoresizingMask;
     [self addSubview:self.containerView];
 }
 
@@ -218,7 +218,7 @@ static const CGFloat kTOSearchBarBackgroundHeightModern = 36.0f;
     UIImage *clearButtonImage = [TOSearchBar sharedClearIcon];
     self.clearButton = [UIButton buttonWithType:UIButtonTypeSystem];
     [self.clearButton setImage:clearButtonImage forState:UIControlStateNormal];
-    self.clearButton.frame = (CGRect){CGPointZero, {44.0f, 44.0f}};
+    self.clearButton.frame = TO_SEARCH_CLEARBTN_FRAME;
     self.clearButton.enabled = NO;
     self.clearButton.hidden = YES;
     [self.clearButton addTarget:self action:@selector(clearButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
@@ -265,7 +265,7 @@ static const CGFloat kTOSearchBarBackgroundHeightModern = 36.0f;
     }
     
     // Layout the background view (and content container)
-    frame = self.barBackgroundView.frame;
+    frame = self.barBackgroundImgView.frame;
     frame.size.width = (self.frame.size.width) - (self.horizontalInset * 2.0f);
     
     float bgH = kTOSearchBarBackgroundHeightClassic;
@@ -281,19 +281,24 @@ static const CGFloat kTOSearchBarBackgroundHeightModern = 36.0f;
     if (self.editing && self.cancelButton) { frame.size.width -= self.cancelButton.frame.size.width; }
     frame.origin.x = self.horizontalInset;
     frame.origin.y = (self.frame.size.height - frame.size.height) * 0.5f;
-    self.barBackgroundView.frame = frame;
+    self.barBackgroundImgView.frame = frame;
     self.containerView.frame = frame;
     
     // layout the place holder label
     frame = self.placeholderLabel.frame;
     
-    float _s_inset = kTOSearchBarInset;
-    if (_searchBarInset > 0) {
-        _s_inset = _searchBarInset;
+    float leftMargin = kTOSearchBarInset;
+    float rightMargin = kTOSearchBarInset;
+    if (_iconViewLeftMargin > 0) {
+        leftMargin = _iconViewLeftMargin;
+    }
+    if (_clearButtonRightMargin > 0) {
+        rightMargin = _clearButtonRightMargin;
     }
     
+    
     if (self.centerTextLabel == NO) {
-        frame.origin.x = (_s_inset) + self.iconView.frame.size.width;
+        frame.origin.x = (leftMargin) + self.iconView.frame.size.width;
         frame.origin.x += iconMargin;
     }
     else {
@@ -306,7 +311,7 @@ static const CGFloat kTOSearchBarBackgroundHeightModern = 36.0f;
     // layout the icon
     frame = self.iconView.frame;
     if (self.editing || self.hasSearchText) {
-        frame.origin.x = _s_inset;
+        frame.origin.x = leftMargin;
     }
     else {
         frame.origin.x = CGRectGetMinX(self.placeholderLabel.frame) - (CGRectGetWidth(self.iconView.frame) + iconMargin);
@@ -324,7 +329,7 @@ static const CGFloat kTOSearchBarBackgroundHeightModern = 36.0f;
     
     // layout the clear button
     CGPoint center = CGPointZero;
-    center.x = (CGRectGetWidth(self.containerView.frame) - (_s_inset + (clearImageSize.width * 0.5f)));
+    center.x = (CGRectGetWidth(self.containerView.frame) - (rightMargin + (clearImageSize.width * 0.5f)));
     center.y = (CGRectGetHeight(self.containerView.frame) * 0.5f);
     self.clearButton.center = center;
 }
@@ -436,7 +441,7 @@ static const CGFloat kTOSearchBarBackgroundHeightModern = 36.0f;
     }
     
     // If we touch anywhere in the rounded rectangle, assume we were aiming for the search field
-    if (CGRectContainsPoint(self.barBackgroundView.frame, point)) {
+    if (CGRectContainsPoint(self.barBackgroundImgView.frame, point)) {
         return self.searchTextField;
     }
     
@@ -511,7 +516,7 @@ static const CGFloat kTOSearchBarBackgroundHeightModern = 36.0f;
     else { return; }
     
     void (^selectedBlock)(void) = ^{
-        self.barBackgroundView.tintColor = selected ? self.selectedBarBackgroundTintColor : self.barBackgroundTintColor;
+        self.barBackgroundImgView.tintColor = selected ? self.selectedBarBackgroundTintColor : self.barBackgroundTintColor;
     };
     
     if (!animated) {
@@ -655,7 +660,7 @@ static const CGFloat kTOSearchBarBackgroundHeightModern = 36.0f;
 - (void)setBarBackgroundTintColor:(UIColor *)barBackgroundTintColor
 {
     _barBackgroundTintColor = barBackgroundTintColor;
-    self.barBackgroundView.tintColor = _barBackgroundTintColor;
+    self.barBackgroundImgView.tintColor = _barBackgroundTintColor;
 }
 
 - (void)setHorizontalInset:(CGFloat)horizontalInset
@@ -667,6 +672,47 @@ static const CGFloat kTOSearchBarBackgroundHeightModern = 36.0f;
     _horizontalInset = horizontalInset;
     [self setNeedsLayout];
 }
+
+- (void)setIconViewLeftMargin:(CGFloat)iconViewLeftMargin
+{
+    if (_iconViewLeftMargin == iconViewLeftMargin) {
+        return;
+    }
+    
+    _iconViewLeftMargin = iconViewLeftMargin;
+    [self setNeedsLayout];
+}
+
+- (void)setClearButtonRightMargin:(CGFloat)clearButtonRightMargin
+{
+    if (_clearButtonRightMargin == clearButtonRightMargin) {
+        return;
+    }
+    _clearButtonRightMargin = clearButtonRightMargin;
+    [self setNeedsLayout];
+}
+
+
+- (void)setSearchBarIconMargin:(CGFloat)searchBarIconMargin
+{
+    if (_searchBarIconMargin == searchBarIconMargin) {
+        return;
+    }
+    _searchBarIconMargin = searchBarIconMargin;
+    [self setNeedsLayout];
+}
+
+- (void)setSearchBarBackgroundHeight:(CGFloat)searchBarBackgroundHeight
+{
+    if (_searchBarBackgroundHeight == searchBarBackgroundHeight) {
+        return;
+    }
+    _searchBarBackgroundHeight = searchBarBackgroundHeight;
+    [self setNeedsLayout];
+}
+
+
+
 
 - (void)setPlaceholderTintColor:(UIColor *)placeholderTintColor
 {
