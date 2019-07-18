@@ -57,7 +57,21 @@
     _searchBar.clearButton.frame = frame;
     
     [_searchBar.clearButton setBackgroundColor:UIColor.brownColor];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        _searchBar.text = @"1123232";
+        _classicSearchBar.text = @"11232235435344";
+    });
 }
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+//    [_classicSearchBar becomeFirstResponder];
+//    [_searchBar becomeFirstResponder];
+}
+
 
 - (void)viewDidAppear:(BOOL)animated
 {
@@ -131,6 +145,16 @@
 //    self.searchBar.style = darkMode ? TOSearchBarStyleDark : TOSearchBarStyleLight;
 //    self.classicSearchBar.barStyle = darkMode ? UIBarStyleBlack : UIBarStyleDefault;
 }
+
+- (IBAction)handleNextAction:(UIButton *)sender {
+    UIViewController *vc = [UIViewController new];
+    vc.view.backgroundColor = UIColor.redColor;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+
+
+
 
 #pragma mark - Search Bar Delegate -
 

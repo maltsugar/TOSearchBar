@@ -531,6 +531,14 @@ static const CGFloat kTOSearchBarBackgroundHeightModern = 36.0f;
                      completion:nil];
 }
 
+- (void)updateClearBtnAndPlaceHolderLabel {
+    
+    self.placeholderLabel.hidden = self.hasSearchText;
+    self.clearButton.enabled     = self.hasSearchText;
+    
+    [self setClearButtonHidden:!self.hasSearchText animated:YES];
+}
+
 #pragma mark - Text Field Delegate -
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
@@ -587,11 +595,7 @@ static const CGFloat kTOSearchBarBackgroundHeightModern = 36.0f;
 
 - (void)textFieldDidChange:(UITextField *)textField
 {
-    self.placeholderLabel.hidden = self.hasSearchText;
-    self.clearButton.enabled     = self.hasSearchText;
-    
-    [self setClearButtonHidden:!self.hasSearchText animated:YES];
-    
+    [self updateClearBtnAndPlaceHolderLabel];
     if ([self.delegate respondsToSelector:@selector(searchBar:textDidChange:)]) {
         [self.delegate searchBar:self textDidChange:self.text];
     }
@@ -630,6 +634,7 @@ static const CGFloat kTOSearchBarBackgroundHeightModern = 36.0f;
 - (void)setText:(NSString *)text
 {
     self.searchTextField.text = text;
+    [self updateClearBtnAndPlaceHolderLabel];
 }
 
 - (NSString *)text
